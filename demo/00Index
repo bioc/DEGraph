@@ -1,0 +1,2 @@
+toy   Compares several test statistics on synthetic data.
+Loi2008 Tests KEGG pathways for differential expression on the data of Loi et al. (2008).

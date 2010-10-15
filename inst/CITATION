@@ -1,0 +1,22 @@
+citEntry(
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # BibTeX entry:
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  entry="TechReport",
+  author ="Laurent Jacob and Pierre Neuvial and Sandrine Dudoit",
+  title ="Gains in Power from Structured Two-Sample Tests of Means on Graphs",
+  year =         "2010", 
+  month =        "Sep",
+  institution =  "University of California at Berkeley",
+  url =          "http://arxiv.org/abs/1009.5173",
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Plain-text citation:
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  textVersion = paste(
+ "Gains in Power from Structured Two-Sample Tests of Means on Graphs",
+ "L. Jacob, P. Neuvial, and S. Dudoit",
+  "September 2010", 
+  "arXiv techreport", 
+  "http://arxiv.org/abs/1009.5173")
+)
