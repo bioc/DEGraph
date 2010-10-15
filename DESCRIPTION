@@ -4,7 +4,7 @@ Version: 0.99.0
 Date: 2010-10-14
 Author: Laurent Jacob, Pierre Neuvial and Sandrine Dudoit
 Maintainer: Laurent Jacob <laurent.jacob@gmail.com>
-Description: DEGraph iplements recent hypothesis testing methods
+Description: DEGraph implements recent hypothesis testing methods
   which directly assess whether a particular gene network is
   differentially expressed between two conditions. This is to be
   contrasted with the more classical two-step approaches which first
