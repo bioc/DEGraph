@@ -2,7 +2,8 @@
 ## Test all (locally stored) pathways from KEGG on Loi's data
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-library("R.utils")
+library('R.utils')
+library('xtable')
 
 verbose <- Arguments$getVerbose(-8, timestamp=TRUE)
 
@@ -14,12 +15,22 @@ sourceDirectory(path)
 path <- system.file("demoScripts", package="DEGraph")
 sourceDirectory(path)
 
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+## get all NCI pathways
+## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+library('NCIgraph')
+path <- system.file("downloadScripts", package="NCIgraph")
+sourceDirectory(path)
+load(file.path('rawNCINetworks','NCI-cyList.RData'))
+
+grList <- getNCIPathways(cyList=NCI.cyList, verbose=verbose)$pList
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## get all KEGG pathways
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-##grList <- getKEGGPathways(organism="hsa", metaTag="non-metabolic", verbose=verbose)
-grList <- getKEGGPathways(organism="hsa", metaTag="non-metabolic", patt="04060", verbose=verbose)
+## grList <- getKEGGPathways(organism="hsa", metaTag="non-metabolic", verbose=verbose)
+## grList <- getKEGGPathways(organism="hsa", metaTag="non-metabolic", patt="04060", verbose=verbose)
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## test all KEGG pathways
@@ -33,34 +44,51 @@ res <- apply(exprData, 1, FUN=function(x) {
 ttpv <- res["p.value", ]
 tts <- res["statistic", ]
 
-names(ttpv) <- translateGeneID2KEGGID(names(ttpv))
-names(tts) <- translateGeneID2KEGGID(names(tts))
+if(!is.NCIgraph(grList[[1]]))
+  {
+    names(ttpv) <- translateGeneID2KEGGID(names(ttpv))
+    names(tts) <- translateGeneID2KEGGID(names(tts))
+  }
 
 prop <- 0.2 ## proportion of the spectrum to be retained for T2-Fourier 
 
 ## Multivariate tests
 resList <- NULL
-##for (ii in 1:40) {
+## for (ii in 1:5) {
 for (ii in seq(along=grList)) {
   verbose && cat(verbose, ii)
   gr <- grList[[ii]]
-  res <- testOneGraph(gr, exprData, classData, verbose=verbose, prop=prop)
-  if(!is.null(res))
+  if(min(length(nodes(gr)),length(gr@edgeData@data))>0) {
+    res <- testOneGraph(gr, exprData, classData, verbose=verbose, prop=prop)
+  } else {
+    res <- NULL
+  }
+  if(!is.null(res)) {
     res <- lapply(res, FUN=function(x) {
-      if(!is.null(x))
-        {
-          ht <- hyper.test(ttpv, nodes(x$graph), thr=0.001)
+      if(!is.null(x)) {
+          if(is.NCIgraph(x$graph)) {
+            geneIDs <- translateNCI2GeneID(x$graph)
+          } else {
+            geneIDs <- translateKEGGID2GeneID(nodes(x$graph))
+          }
+          ht <- hyper.test(ttpv, geneIDs, thr=0.001)
           x$p.value <- c(x$p.value, ht$p.value)
           names(x$p.value)[length(names(x$p.value))] <- "Hypergeometric test"
           return(x)
+        } else {
+          return(NULL)
         }
-      else
-        return(NULL)
     })
+  }
   resList <- c(resList, list(res))
 }
 resNames <- names(grList)
-pLabels <- sapply(grList, attr, "label")
+
+if(is.NCIgraph(grList[[1]])) {
+  pLabels <- names(grList)
+} else {
+  pLabels <- sapply(grList, attr, "label")
+}
 
 ## get rid of NULL results (no connected component of size > 1)
 isNULL <- sapply(resList, is.null)
@@ -99,7 +127,8 @@ for (res in resList) {
   pp <- sapply(res, FUN=function(x) {
     x$p.value
   })
-  pKEGG <- cbind(pKEGG, pp)
+  if(length(pp))
+    pKEGG <- cbind(pKEGG, pp)
 }
 colnames(pKEGG) <- graphNames
 rn <- rownames(pKEGG)
@@ -159,7 +188,7 @@ title(sprintf("Number of significant genes\n with the three BY-corrected tests a
 
 ##pathwayNames[graphNames[order(pHG)[[1]]]]
 
-oo <- order(pF/pH)[1:5]
+oo <- order(pF/pH)[1:25]
 
 gIdx <- oo[1]
 
@@ -173,11 +202,19 @@ if (require(marray)) {
 shift <- tts # Plot t-statistics
 ##shift <- -getMeanShift(exprData, classData) # Plot mean shifts
 
-dn <- getDisplayName(gr, shortLabel=TRUE)
-mm <- match(translateKEGGID2GeneID(nodes(gr)), rownames(annData))
+## dn <- getDisplayName(gr, shortLabel=TRUE)
+
+if(is.NCIgraph(gr)) {
+  mm <- match(translateNCI2GeneID(gr), rownames(annData))
+  nodes(gr) <- translateNCI2GeneID(gr)
+} else {
+  mm <- match(translateKEGGID2GeneID(nodes(gr)), rownames(annData))
+}
 dn <- annData[mm, "NCBI.gene.symbol"]
-  
-res <- plotValuedGraph(gr, values=shift, nodeLabels=dn, qMax=0.95, colorPalette=pal, height=40, lwd=1, verbose=verbose)
+
+##pdf("Loi2008-leukocyte.pdf",width=10,height=10)
+res <- plotValuedGraph(gr, values=shift, nodeLabels=dn, qMax=0.95, colorPalette=pal, height=40, lwd=1, cex=0.7, verbose=verbose)
+##devDone()
 title(paste(pathwayNames[graphNames[gIdx]],"pF=",as.character(signif(pF[gIdx],4)),"pH=",as.character(signif(pH[gIdx],4))))
 
 ## mm <- match(translateKEGGID2GeneID(nodes(gr)), names(shift))
@@ -188,18 +225,28 @@ title(paste(pathwayNames[graphNames[gIdx]],"pF=",as.character(signif(pF[gIdx],4)
 ## step.
 
 fSignif <- which(BHpKEGG[2,]<0.05)
-##fSignif <- fSignif[order(BHpKEGG[1,fSignif],decreasing=TRUE)]
-fSignif <- fSignif[order(BHpKEGG[2,fSignif],decreasing=FALSE)] # Order by increasing pF
+fSignif <- fSignif[order(BHpKEGG[1,fSignif],decreasing=TRUE)]
+##fSignif <- fSignif[order(BHpKEGG[2,fSignif],decreasing=FALSE)] # Order by increasing pF
 
 
 ## Plot all graphs
 ##dev.new()
-pdf("MI-smoothGraphs-loi.pdf")
+##printFileName <- "Tech-MI-smoothGraphs-loi-dec"
+printFileName <- "Loi-NCI"
+printStarted <- FALSE
+pdf(paste(printFileName,".pdf",sep=""))
 for (gIdx in fSignif) {
   ## Get graph
   gr <- graphList[[gIdx]]
-  mm <- match(translateKEGGID2GeneID(nodes(gr)), rownames(annData))
+
+  if(is.NCIgraph(gr)) {
+    mm <- match(translateNCI2GeneID(gr), rownames(annData))
+    nodes(gr) <- translateNCI2GeneID(gr)
+  } else {
+    mm <- match(translateKEGGID2GeneID(nodes(gr)), rownames(annData))
+  }
   dn <- annData[mm, "NCBI.gene.symbol"]
+
   ## Try to plot
   tt <- try(res <- plotValuedGraph(gr, values=shift, nodeLabels=dn, qMax=0.95, colorPalette=pal, height=40, lwd=1, cex=0.3, verbose=verbose))
   ## Add legend
@@ -210,7 +257,14 @@ for (gIdx in fSignif) {
     txt2 <- paste("p(T2F[", ndims[gIdx], "])=", ps[2], sep="")
     txt <- paste(txt1, txt2, sep="\n")
     stext(side=3, pos=1, txt)
-    image.plot(legend.only=TRUE, zlim=range(res$breaks), col=pal, legend.shrink=0.3, legend.width=0.8, legend.lab="t-scores", legend.mar=3.3) 
+    image.plot(legend.only=TRUE, zlim=range(res$breaks), col=pal, legend.shrink=0.3, legend.width=0.8, legend.lab="t-scores", legend.mar=3.3)
+    ## Now print gene table in a tex file
+    cIdx <- match(nodes(gr),names(shift)) #which(names(shift)%in% nodes(gr))
+    gTable <- cbind(dn,signif(shift[cIdx],2),signif(ttpv[cIdx],2))
+    colnames(gTable) <- c("Gene symbol","t-stat","p-value")
+    xt <- xtable(gTable,caption=sprintf("%s, p(Hotelling)=%g, p(netHotelling)=%g",pathwayNames[gIdx], ps[1], ps[2]))
+    print(xt,file=paste(printFileName,"-Tables.tex",sep=""),tabular.environment='longtable',floating=FALSE, append=printStarted)
+    printStarted <- TRUE
   } else {
     warning("check gIdx=", gIdx)
   }
@@ -221,5 +275,3 @@ devDone()
 ts <- format(Sys.time(), "%Y-%m-%d,%X")
 filename <- sprintf("pKEGG,signed,normalized,%s.rda", ts)
 save(resList, pKEGG, graphList, pathwayNames, ndims, file=filename)
-
-

@@ -100,7 +100,13 @@ testOneGraph <- function(graph, data, classes, useInteractionSigns=TRUE, ..., ve
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   verbose && enter(verbose, "Keeping genes in the graph *and* the expression data set")
   dataGN <- rownames(data)
-  graphGN <- translateKEGGID2GeneID(nodes(graph))
+  if(is.NCIgraph(graph))
+    {
+      graphGN <- translateNCI2GeneID(graph)
+      names(graphGN) <- NULL
+    }
+  else
+    graphGN <- translateKEGGID2GeneID(nodes(graph))
   commonGN <- intersect(dataGN, graphGN)
 
   mm <- match(graphGN, commonGN)
@@ -129,7 +135,13 @@ testOneGraph <- function(graph, data, classes, useInteractionSigns=TRUE, ..., ve
   data <- data[mm, ]
 
   ## sanity check (ordering should be the same now)
-  graphGN <- translateKEGGID2GeneID(nodes(graph))
+  if(is.NCIgraph(graph))
+    {
+      graphGN <- translateNCI2GeneID(graph)
+      names(graphGN) <- NULL
+    }
+  else
+    graphGN <- translateKEGGID2GeneID(nodes(graph))
   dataGN <- rownames(data)
   stopifnot(all.equal(dataGN, graphGN))
 
@@ -180,6 +192,8 @@ testOneGraph <- function(graph, data, classes, useInteractionSigns=TRUE, ..., ve
 
 ############################################################################
 ## HISTORY:
+## 2011-03-06
+## o Dealing with NCI graphs
 ## 2010-10-08
 ## o Now validating argument 'verbose'.
 ############################################################################

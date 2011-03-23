@@ -25,4 +25,4 @@ importFrom(rrcov, T2.test)
 importFrom(mvtnorm, rmvnorm)
 importFrom(RBGL,connectedComp)
 importFrom(lattice, level.colors)
-
+importFrom(NCIgraph, is.NCIgraph)

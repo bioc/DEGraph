@@ -179,11 +179,26 @@ plotValuedGraph <- function(graph, values=NULL, nodeLabels=nodes(graph), qMax=0.
     if (symmetrizeArrows) {
       edgeRenderInfo(graph) <- list(arrowtail=eArrowhead)
     }
-  } else {
-    ## graphAM
-    if (inherits(graph, "graphAM")) {
-     ahd <- rep("normal", length(ed))
-     names(ahd) <- names(ed)
+  }
+  else
+    if(is.NCIgraph(graph)) ## NCIgraph
+      {
+        eTypeDictionnary <- c('normal','tee')
+        eColDictionnary <- c('red','blue')
+        names(eTypeDictionnary) <- names(eColDictionnary) <- c('activation','inhibition')
+        eTypes <- unlist(lapply(graph@edgeData@data,FUN=function(e) tolower(e$edgeType)))
+        ERIarrowhead =eTypeDictionnary[eTypes]
+        ERIcol =eColDictionnary[eTypes]
+        eNames <- sapply(names(graph@edgeData@data),FUN=function(e) gsub(e,pattern='\\|',replacement='~'))
+        names(ERIarrowhead) <- names(ERIcol) <- eNames
+        edgeRenderInfo(graph) <- list(arrowhead=ERIarrowhead,col=ERIcol)
+      }
+    else
+      {
+        ## graphAM
+        if (inherits(graph, "graphAM")) {
+          ahd <- rep("normal", length(ed))
+          names(ahd) <- names(ed)
      adjMat <- graph@adjMat
      ## not useful: adjacency matrix is not signed...
    }

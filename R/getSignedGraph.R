@@ -88,11 +88,14 @@ getSignedGraph <- function(graph, positiveInteractionLabels=c("activation", "exp
     cat <- R.utils::cat
     pushState(verbose)
     on.exit(popState(verbose))
-  } 
+  }
 
   
-  ## retrieve edge types
-  st <- getSubtype(graph)  ## FIXME: does not work for undirected graphs
+  ## retrieve edge types (method detects whether or not graph is a NCIgraph)
+  ##  if(is.NCIgraph(graph))
+  ##    st <- getSubtype.NCIgraph(graph)
+  ##  else
+  st <- getSubtype(graph) ## FIXME: does not work for undirected graphs
   edgeNames <- names(st)
   intNames <- sapply(st, FUN=function(x) {
     x$subtype@name
@@ -134,7 +137,7 @@ getSignedGraph <- function(graph, positiveInteractionLabels=c("activation", "exp
 
     etrNames <- edgeNames[-c(idxPos, idxNeg)]
     ftNames <- sapply(etrNames, FUN=function(edge) {
-      unlist(strsplit(edge, "~"))
+      unlist(strsplit(edge, "~|\\|"))
     })
 
     oldGraph <- graph
@@ -161,7 +164,7 @@ getSignedGraph <- function(graph, positiveInteractionLabels=c("activation", "exp
   if (length(negNames)) {
     ## set negative edges to -1
     ftNames <- sapply(negNames, FUN=function(edge) {
-      unlist(strsplit(edge, "~"))
+      unlist(strsplit(edge, "~|\\|"))
     })
     nodeNames <- colnames(signMat)
     for (ii in seq(length=ncol(ftNames))) {
@@ -180,7 +183,7 @@ getSignedGraph <- function(graph, positiveInteractionLabels=c("activation", "exp
   if (length(posNames)) {
     ## check that positive edges are 1
     ftNames <- sapply(posNames, FUN=function(edge) {
-      unlist(strsplit(edge, "~"))
+      unlist(strsplit(edge, "~|\\|"))
     })
     nodeNames <- colnames(signMat)
     for (ii in seq(length=ncol(ftNames))) {
@@ -201,6 +204,8 @@ getSignedGraph <- function(graph, positiveInteractionLabels=c("activation", "exp
 
 ############################################################################
 ## HISTORY:
+## 2011-03-06
+## o Dealing with NCI graphs
 ## 2010-10-08
 ## o Now validating argument 'verbose'.
 ## o Updated arguments.

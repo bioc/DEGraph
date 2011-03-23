@@ -71,6 +71,7 @@ graph.T2.test <- function(X1, X2, G=NULL, lfA=NULL, ..., k=ncol(X1))
     }    
 
   U <- lfA$U
+  ## print(U)
   egVal <- lfA$l
   kIdx <- (egVal <= max(egVal[k],tol)) #lfA$kIdx
   rk <- max(which(kIdx)) ## "round" the number of kept eigenvectors to take into account eigenvalue multiplicity

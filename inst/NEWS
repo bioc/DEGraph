@@ -1,6 +1,10 @@
 Package: DEGraph
 ===================
 
+Version: 1.2.0 [2011-03-23]
+o Added support of NCI networks through the NCIgraph package.
+o Updated the man page of the Loi2008 data.
+
 Version: 0.3.3 [2010-10-08]
 o Now validating 'verbose' argument in all functions.
 
