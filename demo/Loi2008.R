@@ -19,17 +19,19 @@ sourceDirectory(path)
 ## get all NCI pathways
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-library('NCIgraph')
-path <- system.file("downloadScripts", package="NCIgraph")
-sourceDirectory(path)
-load(file.path('rawNCINetworks','NCI-cyList.RData'))
+##library('NCIgraph')
+##path <- system.file("downloadScripts", package="NCIgraph")
+##sourceDirectory(path)
+##load(file.path('rawNCINetworks','NCI-cyList.RData'))
 
-grList <- getNCIPathways(cyList=NCI.cyList, verbose=verbose)$pList
+##grList <- getNCIPathways(cyList=NCI.cyList, verbose=verbose)$pList
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## get all KEGG pathways
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-## grList <- getKEGGPathways(organism="hsa", metaTag="non-metabolic", verbose=verbose)
+
+grList <- getKEGGPathways(organism="hsa", metaTag="non-metabolic", verbose=verbose)
+
 ## grList <- getKEGGPathways(organism="hsa", metaTag="non-metabolic", patt="04060", verbose=verbose)
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
