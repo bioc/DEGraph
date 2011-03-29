@@ -16,7 +16,7 @@ Description: DEGraph implements recent hypothesis testing methods
   and tools to visualize the results.
 License: GPL-3
 LazyLoad: yes
-Imports: graph, KEGGgraph, lattice, mvtnorm, NCIgraph, R.methodsS3, RBGL, Rgraphviz, rrcov
-Suggests: corpcor, fields, graph, KEGGgraph, lattice, marray, NCIgraph, RBGL, rrcov, Rgraphviz
+Imports: graph, KEGGgraph, lattice, mvtnorm, R.methodsS3, RBGL, Rgraphviz, rrcov
+Suggests: corpcor, fields, graph, KEGGgraph, lattice, marray, RBGL, rrcov, Rgraphviz
 Depends: R (>= 2.10.0), R.utils
 biocViews: Microarray, Bioinformatics, DifferentialExpression, GraphsAndNetworks
