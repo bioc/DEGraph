@@ -19,6 +19,10 @@ import(KEGGgraph)
 ## importFrom(graph,subGraph, numEdges, validGraph, isDirected, removeEdge)
 ## importFrom(KEGGGraph, parseKGML, getPathwayInfo, KEGGpathway2Graph, getTitle, getSubtype)
 
+##importFrom(KEGGGraph, getKEGGedgeData)
+
+##importFrom(graph, edgeData)
+
 importFrom(R.methodsS3, throw)
 importFrom(Rgraphviz, layoutGraph, renderGraph)
 importFrom(rrcov, T2.test)
