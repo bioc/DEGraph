@@ -59,6 +59,7 @@
 }
 
 \examples{
+library("Rgraphviz")
 library("KEGGgraph")
 
 data("Loi2008_DEGraphVignette")

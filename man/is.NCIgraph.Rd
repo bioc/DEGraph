@@ -27,3 +27,7 @@
 
 \author{Laurent Jacob, Pierre Neuvial and Sandrine Dudoit}
 
+\seealso{
+  \code{\link{parseNCInetwork}}
+}
+

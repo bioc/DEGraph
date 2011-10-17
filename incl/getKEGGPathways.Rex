@@ -1,3 +1,4 @@
+library("Rgraphviz")
 library("KEGGgraph")
 
 ## example of KGML files

@@ -116,7 +116,7 @@ library("R.utils")
 ##library(rrcov) ## for 'T2.test'
 library(corpcor)
 library(KEGGgraph)
-##library(Rgraphviz)
+library(Rgraphviz)
 ##library(RBGL)
 library(fields) # For image.plot called in plotValuedGraph
 library(lattice)
