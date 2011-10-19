@@ -44,6 +44,7 @@
 \examples{
 library("Rgraphviz")
 library("KEGGgraph")
+library("NCIgraph")
 
 data("Loi2008_DEGraphVignette")
 exprData <- exprLoi2008

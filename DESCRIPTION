@@ -1,7 +1,7 @@
 Package: DEGraph
 Title: Two-sample tests on a graph
-Version: 1.5.1
-Date: 2011-10-16
+Version: 1.5.2
+Date: 2011-10-18
 Author: Laurent Jacob, Pierre Neuvial and Sandrine Dudoit
 Maintainer: Laurent Jacob <laurent.jacob@gmail.com>
 Description: DEGraph implements recent hypothesis testing methods
