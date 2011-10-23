@@ -1,7 +1,7 @@
 Package: DEGraph
 Title: Two-sample tests on a graph
-Version: 1.5.2
-Date: 2011-10-18
+Version: 1.5.3
+Date: 2011-10-23
 Author: Laurent Jacob, Pierre Neuvial and Sandrine Dudoit
 Maintainer: Laurent Jacob <laurent.jacob@gmail.com>
 Description: DEGraph implements recent hypothesis testing methods
@@ -16,7 +16,7 @@ Description: DEGraph implements recent hypothesis testing methods
   and tools to visualize the results.
 License: GPL-3
 LazyLoad: yes
-Imports: graph, KEGGgraph, lattice, mvtnorm, R.methodsS3, RBGL, Rgraphviz, rrcov
+Imports: graph, KEGGgraph, lattice, mvtnorm, R.methodsS3, RBGL, Rgraphviz, rrcov, NCIgraph
 Suggests: corpcor, fields, graph, KEGGgraph, lattice, marray, RBGL, rrcov, Rgraphviz, NCIgraph
 Depends: R (>= 2.10.0), R.utils
 biocViews: Microarray, Bioinformatics, DifferentialExpression, GraphsAndNetworks

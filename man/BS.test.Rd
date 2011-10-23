@@ -46,7 +46,7 @@
 
 \examples{
 library("KEGGgraph")
-library("NCIgraph")
+## library("NCIgraph")
 library("rrcov")
 
 data("Loi2008_DEGraphVignette")

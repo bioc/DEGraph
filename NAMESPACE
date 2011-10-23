@@ -18,7 +18,7 @@ import(graph)
 import(KEGGgraph)
 ## importFrom(graph,subGraph, numEdges, validGraph, isDirected, removeEdge)
 ## importFrom(KEGGGraph, parseKGML, getPathwayInfo, KEGGpathway2Graph, getTitle, getSubtype)
-
+importFrom(NCIgraph, is.NCIgraph)
 ##importFrom(KEGGGraph, getKEGGedgeData)
 
 ##importFrom(graph, edgeData)
