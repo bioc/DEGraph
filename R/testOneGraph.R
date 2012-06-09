@@ -132,7 +132,7 @@ testOneGraph <- function(graph, data, classes, useInteractionSigns=TRUE, ..., ve
   }
   mm <- match(commonGN, dataGN)
   ## sorting (and subsetting if necessary)
-  data <- data[mm, ]
+  data <- data[mm, , drop=FALSE]
 
   ## sanity check (ordering should be the same now)
   if(is.NCIgraph(graph))
