@@ -196,7 +196,10 @@ getSignedGraph <- function(graph, positiveInteractionLabels=c("activation", "exp
     }
   }
   
-  attr(graph, 'signMat') <- signMat
+  
+  graph@graphData$signMat <- signMat
+  
+  #attr(graph, 'signMat') <- signMat
   verbose && exit(verbose)
 
   graph

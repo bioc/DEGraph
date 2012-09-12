@@ -115,8 +115,10 @@ getKEGGPathways <- function(path=NULL, rootPath="networkData/ftp.genome.jp/pub/k
     pw <- parseKGML(pathname)
     pwInfo <- getPathwayInfo(pw)
     gr <- KEGGpathway2Graph(pw, genesOnly=TRUE, expandGenes=TRUE)
-    attr(gr, "info") <- pwInfo
-    attr(gr, "label") <- getTitle(pwInfo)
+    #attr(gr, "info") <- pwInfo
+    gr@graphData$info <- pwInfo
+    #attr(gr, "label") <- getTitle(pwInfo)
+    gr@graphData$label <- getTitle(pwInfo)
     increase(pb)
     gr
   })

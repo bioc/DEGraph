@@ -137,7 +137,8 @@ testOneConnectedComponent <- function(graph, data, classes, ..., prop=0.2, verbo
   X2 <- t(data[, classes==cls[2]])
 
   ## get sign information (if any) and infer from its presence the type of graph
-  signMat <- attr(graph, 'signMat')
+  #signMat <- attr(graph, 'signMat')
+  signMat <- graph@graphData$signMat
   if (is.null(signMat)) {
     verbose && cat(verbose, "Unsigned graph")
     ## use adjacency matrix of the corresponding undirected graph
