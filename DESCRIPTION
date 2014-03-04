@@ -1,22 +1,25 @@
 Package: DEGraph
 Title: Two-sample tests on a graph
-Version: 1.15.1
+Version: 1.15.2
 Date: 2012-04-27
 Author: Laurent Jacob, Pierre Neuvial and Sandrine Dudoit
 Maintainer: Laurent Jacob <laurent.jacob@gmail.com>
-Description: DEGraph implements recent hypothesis testing methods
-  which directly assess whether a particular gene network is
-  differentially expressed between two conditions. This is to be
-  contrasted with the more classical two-step approaches which first
-  test individual genes, then test gene sets for enrichment in
-  differentially expressed genes. These recent methods take into
-  account the topology of the network to yield more powerful detection
-  procedures. DEGraph provides methods to easily test all KEGG 
-  pathways for differential expression on any gene expression data set
-  and tools to visualize the results.
+Description: DEGraph implements recent hypothesis testing methods which
+        directly assess whether a particular gene network is
+        differentially expressed between two conditions. This is to be
+        contrasted with the more classical two-step approaches which
+        first test individual genes, then test gene sets for enrichment
+        in differentially expressed genes. These recent methods take
+        into account the topology of the network to yield more powerful
+        detection procedures. DEGraph provides methods to easily test
+        all KEGG pathways for differential expression on any gene
+        expression data set and tools to visualize the results.
 License: GPL-3
 LazyLoad: yes
-Imports: graph, KEGGgraph, lattice, mvtnorm, R.methodsS3, RBGL, Rgraphviz, rrcov, NCIgraph
-Suggests: corpcor, fields, graph, KEGGgraph, lattice, marray, RBGL, rrcov, Rgraphviz, NCIgraph
+Imports: graph, KEGGgraph, lattice, mvtnorm, R.methodsS3, RBGL,
+        Rgraphviz, rrcov, NCIgraph
+Suggests: corpcor, fields, graph, KEGGgraph, lattice, marray, RBGL,
+        rrcov, Rgraphviz, NCIgraph
 Depends: R (>= 2.10.0), R.utils
-biocViews: Microarray, DifferentialExpression, GraphsAndNetworks, NetworkAnalysis, NetworkEnrichment
+biocViews: Microarray, DifferentialExpression, GraphAndNetwork,
+        Network, NetworkEnrichment
