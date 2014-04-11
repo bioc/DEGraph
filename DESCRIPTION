@@ -1,6 +1,6 @@
 Package: DEGraph
 Title: Two-sample tests on a graph
-Version: 1.16.0
+Version: 1.17.0
 Date: 2012-04-27
 Author: Laurent Jacob, Pierre Neuvial and Sandrine Dudoit
 Maintainer: Laurent Jacob <laurent.jacob@gmail.com>
