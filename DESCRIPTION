@@ -1,6 +1,6 @@
 Package: DEGraph
 Title: Two-sample tests on a graph
-Version: 1.17.0
+Version: 1.17.1
 Date: 2012-04-27
 Author: Laurent Jacob, Pierre Neuvial and Sandrine Dudoit
 Maintainer: Laurent Jacob <laurent.jacob@gmail.com>
@@ -22,4 +22,4 @@ Suggests: corpcor, fields, graph, KEGGgraph, lattice, marray, RBGL,
         rrcov, Rgraphviz, NCIgraph
 Depends: R (>= 2.10.0), R.utils
 biocViews: Microarray, DifferentialExpression, GraphAndNetwork,
-        Network, NetworkEnrichment
+        Network, NetworkEnrichment, DecisionTree
