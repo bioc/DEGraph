@@ -2,21 +2,28 @@ citEntry(
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # BibTeX entry:
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-  entry="TechReport",
+  entry="Article",
   author ="Laurent Jacob and Pierre Neuvial and Sandrine Dudoit",
-  title ="Gains in Power from Structured Two-Sample Tests of Means on Graphs",
-  year =         "2010", 
-  month =        "Sep",
-  institution =  "University of California at Berkeley",
-  url =          "http://arxiv.org/abs/1009.5173",
+  title ="More power via graph-structured tests for differential expression of gene networks",
+  year =         "2012", 
+  month =        "Jun",
+  doi = "10.1214/11-AOAS528",
+  fjournal = "The Annals of Applied Statistics",
+  journal = "Ann. Appl. Stat.",
+  number = "2",
+  pages = "561--600",
+  publisher = "The Institute of Mathematical Statistics",
+  url = "http://dx.doi.org/10.1214/11-AOAS528",
+  volume = "6"
 
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   # Plain-text citation:
   # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
   textVersion = paste(
- "Gains in Power from Structured Two-Sample Tests of Means on Graphs",
+ "More power via graph-structured tests for differential expression of gene networks",
  "L. Jacob, P. Neuvial, and S. Dudoit",
-  "September 2010", 
-  "arXiv techreport", 
-  "http://arxiv.org/abs/1009.5173")
+ "Jun 2012", 
+ "The Annals of Applied Statistics",
+ "http://dx.doi.org/10.1214/11-AOAS528")
 )
+
