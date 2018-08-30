@@ -1,8 +1,9 @@
 ## Bioconductor packages
-source("http://bioconductor.org/biocLite.R")
-biocLite("Rgraphviz")
-biocLite("KEGGgraph")
-biocLite("marray")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install("Rgraphviz")
+BiocManager::install("KEGGgraph")
+BiocManager::install("marray")
 
 ## CRAN packages
 install.packages("rrcov")
