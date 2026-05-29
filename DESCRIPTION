@@ -23,3 +23,4 @@ Suggests: corpcor, fields, graph, KEGGgraph, lattice, marray, RBGL,
 Depends: R (>= 2.10.0), R.utils
 biocViews: Microarray, DifferentialExpression, GraphAndNetwork,
         Network, NetworkEnrichment, DecisionTree
+Config/Bioconductor/UnsupportedPlatforms: windows, macosx
